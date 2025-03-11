@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!-- QWeb Reports -->
+        <record id="sale_order_report_summary" model="ir.actions.report">
+            <field name="name">Sales Summary</field>
+            <field name="model">sale.order</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">sale_custom_report.report_sale_summary</field>
+            <field name="report_file">sale_custom_report.report_sale_summary</field>
+            <field name="print_report_name">sales_summary</field>
+            <field name="attachment" />
+            <field name="binding_model_id" ref="sale.model_sale_order"/>
+            <field name="binding_type">report</field>
+            <field name="paperformat_id" ref="sale_custom_report.paperformat_sale_order_report_summary"/>
+        </record>
+    </data>
+</odoo>

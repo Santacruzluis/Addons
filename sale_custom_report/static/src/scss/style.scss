@@ -1,0 +1,45 @@
+@font-face {
+    font-family: "ubuntu";
+    src: url("./../fonts/Ubuntu-Regular.ttf") format("truetype");
+    font-weight: normal;
+}
+
+@font-face {
+    font-family: "ubuntu";
+    src: url("./../fonts/Ubuntu-Medium.ttf") format("truetype");
+    font-weight: bold;
+}
+
+
+h2,
+h3,
+h4 {
+    color: #3b94d4;
+    text-align: center;
+    font-family: ubuntu;
+    font-weight: bold;
+}
+
+.nproducts{
+    max-width: 65px !important;
+    overflow: hidden !important;
+}
+
+.sales_report_custom{
+    font-size: 18px;
+    font-family: ubuntu;
+}
+
+.table-so-custom{
+    font-size: 14px;
+    font-family: ubuntu;
+    font-weight: bold;
+}
+
+.table-so-custom th{
+    font-size: 18px;
+    font-family: ubuntu;
+    font-weight: bold;
+    background-color: #3b94d4;
+    color: azure !important;
+}

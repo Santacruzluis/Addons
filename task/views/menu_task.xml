@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <data noupdate="0">
+
+        <menuitem id="task_root" name="Task" sequence="1" groups="task.task_group_user,task_group_admin" web_icon="task,static/description/icon.png" />
+
+        <menuitem id="task_task_priori" name="Task priori" sequence="1" parent="task_root"/>
+
+        <menuitem id="menu_action_task_task" name="Task priori" sequence="1" parent="task_task_priori" action="task.action_task_task"/>
+        
+        <menuitem id="task_person" name="Person Task" sequence="2" parent="task_root"/>
+
+        <!-- Acción para Task Person -->
+        <menuitem id="menu_action_task_person" name="Task Person" sequence="1" parent="task_person" action="task.action_task_person"/>
+    </data>
+
+</odoo>

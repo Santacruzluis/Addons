@@ -1,0 +1,17 @@
+<odoo>
+    <record id="res_config_settings_view_form_inherit_custom_invoice" model="ir.ui.view">
+        <field name="name">res.config.settings.view.form.inherit.custom.invoice</field>
+        <field name="model">res.config.settings</field>
+        <field name="inherit_id" ref="base.res_config_settings_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//form[hasclass('oe_form_configuration')]" position="inside">
+                <div class="row mt16">
+                    <div class="col-12">
+                        <h2>Formato Forma Libre</h2>
+                        <field name="custom_invoice_check"/>
+                    </div>
+                </div>
+            </xpath>
+        </field>
+    </record>
+</odoo>

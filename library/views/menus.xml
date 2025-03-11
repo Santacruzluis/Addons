@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="0">
+        <!-- Menu Books -->
+
+        <!-- Menu Root -->
+        <menuitem id="library_root"
+                  name="Library"
+                  sequence="1"
+                  groups="library.library_group_user"
+                  web_icon="library,static/description/library_icon.png"/>
+        <menuitem id="library_book_categ"
+                  name="Books"
+                  sequence="1"
+                  parent="library.library_root"/>
+        <menuitem id="menu_action_library_book"
+                  sequence="1"
+                  parent="library_book_categ"
+                  action="library.action_library_book"/>
+
+        <!-- Menú author -->
+        <!-- hemos dejado a author solo con 1 menu -->
+        <!-- todo: eliminar si no se usa -->
+        <!-- <menuitem id="library_author_categ"
+                  name="Authors"
+                  sequence="1"
+                  parent="library.library_root"/> -->
+
+        <record id="menu_library_author" model="ir.ui.menu">
+            <field name="name">Authors</field>
+            <field name="action" ref="action_library_author"/>
+            <field name="parent_id" ref="library.library_root"/>
+        </record>
+
+        <!-- menu categories -->
+        <menuitem
+            id="library_book_category_menu_action"
+            action="library.action_library_book_category"
+            parent="library.library_book_categ"
+            sequence="10"/>
+
+        <!-- Menu orders -->
+        <menuitem id="menu_action_library_book_orders"
+                  sequence="6"
+                  parent="library_book_categ"
+                  action="library.action_library_book_order"/>
+        
+    </data>
+</odoo>

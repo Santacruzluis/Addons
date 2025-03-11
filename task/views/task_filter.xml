@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="task_filter" model="ir.ui.view">
+            <field name="name">task.filter</field>
+            <field name="model">task.task</field>
+            <field name="arch" type="xml">
+                <search string="Task Filter">
+
+                    <!-- Campo de búsqueda por nombre -->
+                    <field name="name" string="Name"/>
+
+                    <!-- Filtro para tareas completadas -->
+                    <filter string="Completadas" name="completed" domain="[('is_completed', '=', True)]"/>
+
+                    <!-- Filtro para tareas no completadas -->
+                    <filter string="No Completadas" name="not_completed" domain="[('is_completed', '=', False)]"/>
+
+                    <!-- Grupo de filtros por defecto -->
+                    <group expand="1" string="Agrupar por">
+                        <filter string="Estado de Completado" name="group_by_completed" context="{'group_by': 'is_completed'}"/>
+                    </group>
+
+                    <group expand="1" string="Agrupar por">
+                        <filter string="Estado de No Completado" name="group_by_completed" context="{'group_by': 'is_completed'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+    </data>
+</odoo>

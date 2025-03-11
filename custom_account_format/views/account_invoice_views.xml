@@ -1,0 +1,34 @@
+<odoo>
+    <record id="account_invoice_report_custom" model="ir.actions.report">
+        <field name="name">Custom Invoice Report</field>
+        <field name="model">account.move</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">custom_invoice.report_custom_invoice</field>
+        <field name="print_report_name">'Invoice - %s' % (object.name)</field>
+        <field name="binding_model_id" ref="account.model_account_move"/>
+        <field name="binding_type">report</field>
+    </record>
+
+    <template id="report_custom_invoice">
+        <t t-call="web.html_container">
+            <t t-call="web.internal_layout">
+                <div class="page">
+                    <!-- Verificar si el formato personalizado está activado -->
+                    <t t-if="env['ir.config_parameter'].sudo().get_param('custom_invoice.custom_invoice_check') == 'True'">
+                        <h2>Formato Personalizado de Factura</h2>
+                        <p>Número de Factura: <span t-field="object.name"/></p>
+                        <p>Fecha: <span t-field="object.invoice_date"/></p>
+                        <p>Monto Total: <span t-field="object.amount_total"/></p>
+                        <p>Este es un formato de factura personalizado.</p>
+                    </t>
+                    <t t-else="">
+                        <h2>Formato Estándar de Factura</h2>
+                        <p>Número de Factura: <span t-field="object.name"/></p>
+                        <p>Fecha: <span t-field="object.invoice_date"/></p>
+                        <p>Monto Total: <span t-field="object.amount_total"/></p>
+                    </t>
+                </div>
+            </t>
+        </t>
+    </template>
+</odoo>

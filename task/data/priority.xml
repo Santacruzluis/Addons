@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+
+    
+        <record id="priority_high" model="task.priority">
+            <field name="name">High</field>
+        </record>
+        <record id="priority_medium" model="task.priority">
+            <field name="name">Medium</field>
+        </record>
+        <record id="priority_low" model="task.priority">
+            <field name="name">Low</field>
+        </record>
+    </data>
+</odoo>
