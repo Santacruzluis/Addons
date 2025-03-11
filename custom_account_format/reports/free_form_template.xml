@@ -3,14 +3,14 @@
   <template id="freeform_letter_lang_template">
     <t t-call="web.html_container">
       <t t-foreach="docs" t-as="o">
-        <t t-call="impresion_forma_libre-17.freeform_template" t-lang="o.partner_id.lang" />
+        <t t-call="custom_account_format.freeform_template" t-lang="o.partner_id.lang" />
       </t>
     </t>
   </template>
   <template id="freeform_half_letter_lang_template">
     <t t-call="web.html_container">
       <t t-foreach="docs" t-as="o">
-        <t t-call="impresion_forma_libre-17.freeform_template" t-lang="o.partner_id.lang" />
+        <t t-call="custom_account_format.freeform_template" t-lang="o.partner_id.lang" />
       </t>
     </t>
   </template>

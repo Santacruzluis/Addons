@@ -5,10 +5,17 @@
         <field name="inherit_id" ref="base.res_config_settings_view_form"/>
         <field name="arch" type="xml">
             <xpath expr="//form[hasclass('oe_form_configuration')]" position="inside">
-                <div class="row mt16">
-                    <div class="col-12">
-                        <h2>Formato Forma Libre</h2>
-                        <field name="custom_invoice_check"/>
+                <div class="col-12 col-lg-6 o_setting_box" id="default_freeform_format">
+                    <div class="o_setting_left_pane"/>
+                    <h2>Formato Forma Libre</h2>
+                    <div class="o_setting_right_pane">
+                        <span class="o_form_label">Default freeform format</span>
+                        <div class="text-muted">
+                        Default freeform invoice format
+                        </div>
+                        <div class="text-muted">
+                            <field name="custom_invoice_check"/>
+                        </div>
                     </div>
                 </div>
             </xpath>
