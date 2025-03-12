@@ -1,20 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
-  <template id="freeform_letter_lang_template">
+  <template id="free_form_letter_lang_template">
     <t t-call="web.html_container">
       <t t-foreach="docs" t-as="o">
-        <t t-call="custom_account_format.freeform_template" t-lang="o.partner_id.lang" />
+        <t t-call="custom_account_format.free_form_template" t-lang="o.partner_id.lang" />
       </t>
     </t>
   </template>
-  <template id="freeform_half_letter_lang_template">
+  <template id="free_form_half_letter_lang_template">
     <t t-call="web.html_container">
       <t t-foreach="docs" t-as="o">
-        <t t-call="custom_account_format.freeform_template" t-lang="o.partner_id.lang" />
+        <t t-call="custom_account_format.free_form_template" t-lang="o.partner_id.lang" />
       </t>
     </t>
   </template>
-  <template id="freeform_template">
+  <template id="free_form_template">
     <div class="article small" style="font-family: 'calibri'; font-size: x-small;">
       <div class="row">
         <div class="col-4">
@@ -25,14 +25,16 @@
           <span t-field="o.partner_id.vat" />
           <br />
           <strong>Address:</strong>
-          <span t-out="o.partner_id._display_address(True)" /> -
+          <span t-out="o.partner_id._display_address(True)" />
+ -
           <span t-field="o.partner_id.phone" />
           <br />
         </div>
         <div class="col-4 text-center">
-          <h5 t-if="not o.is_credit_note and not o.is_debit_note">Invoice</h5>
-          <h5 t-if="o.is_credit_note">Credit Note</h5>
-          <h5 t-if="o.is_debit_note">Debit Note</h5>
+          <h5 t-if="o.move_type == 'out_invoice'">Invoice</h5>
+          <h5 t-if="o.move_type == 'out_refund'">Credit Note</h5>
+          <h5 t-if="o.move_type == 'in_invoice'">Supplier Invoice</h5>
+          <h5 t-if="o.move_type == 'in_refund'">Supplier Credit Note</h5>
         </div>
         <div class="col-4 text-end">
           <t t-if="o.company_id.municipality">
@@ -40,9 +42,12 @@
             <span t-field="o.company_id.municipality" />
             <br />
           </t>
-          <strong t-if="not o.is_credit_note and not o.is_debit_note">Invoice N°:</strong>
-          <strong t-if="o.is_credit_note">Credit Note N°:</strong>
-          <strong t-if="o.is_debit_note">Debit Note N°:</strong>
+          <!-- Updated line -->
+          <strong t-if="o.move_type not in ['out_refund', 'in_refund']">Invoice N°:</strong>
+          <strong t-if="o.move_type == 'out_invoice'">Invoice N°:</strong>
+          <strong t-if="o.move_type == 'out_refund'">Credit Note N°:</strong>
+          <strong t-if="o.move_type == 'in_invoice'">Supplier Invoice N°:</strong>
+          <strong t-if="o.move_type == 'in_refund'">Supplier Credit Note N°:</strong>
           <span t-field="o.fiscal_correlative" />
           <br />
           <strong>Date:</strong>
@@ -100,7 +105,8 @@
                 <span t-field="line.product_id.uom_id"/>
               </td>
               <td t-if="show_discount" class="text-end">
-                <span t-field="line.discount"/>%
+                <span t-field="line.discount"/>
+%
               </td>
               <td class="text-end">
                 <span t-field="line.price_subtotal" />
@@ -138,7 +144,8 @@
           </div>
         </div>
         <p t-if="o.fiscal_currency_id" class="mt-3">As established in Art. 25 of the Value Added Tax Law, the amounts of the invoice are expressed in Bs. Calculated at
-          <span t-out="o._get_rate()"/> the exchange rate established by the BCV
+          <span t-out="o._get_rate()"/>
+ the exchange rate established by the BCV
         </p>
       </div>
       <div name="terms_and_conditions">

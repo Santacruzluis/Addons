@@ -1,5 +1,6 @@
 from odoo import fields, models
 
+
 class ResConfigSettings(models.TransientModel):
     _inherit = 'res.config.settings'
 
@@ -10,6 +11,7 @@ class ResConfigSettings(models.TransientModel):
     
     use_half_letter = fields.Boolean(
         string='Usar Formato Media Carta',
-        config_parameter='custom_account_format.use_half_letter'
+        related='company_id.use_half_letter',
+        readonly=False
     )
 

@@ -1,5 +1,5 @@
 {
-    'name': 'Custom Invoice',
+    'name': 'Custom Account Format',
     'version': '1.0',
     'category': 'Accounting',
     'summary': 'Módulo personalizado para facturación',
