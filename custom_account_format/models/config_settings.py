@@ -1,10 +1,15 @@
-from odoo import models, fields
+from odoo import fields, models
 
 class ResConfigSettings(models.TransientModel):
     _inherit = 'res.config.settings'
 
     custom_invoice_check = fields.Boolean(
-        string="Activar formato de factura",
-        help="Habilita esta opción para usar un formato de factura personalizado.",
-        config_parameter='custom_invoice.custom_invoice_check'  # Opcional: Guardar el valor como parámetro de configuración global
+        string='Usar Formato de Factura Libre', 
+        config_parameter='custom_account_format.custom_invoice_check'
     )
+    
+    use_half_letter = fields.Boolean(
+        string='Usar Formato Media Carta',
+        config_parameter='custom_account_format.use_half_letter'
+    )
+

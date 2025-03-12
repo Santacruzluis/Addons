@@ -1,9 +1,11 @@
 {
     'name': 'Custom Invoice',
     'version': '1.0',
+    'category': 'Accounting',
     'summary': 'Módulo personalizado para facturación',
     'description': 'Este módulo añade un check en la configuración para personalizar el formato de factura.',
     'author': 'Manolo',
+    'license': 'LGPL-3',
     'depends': ['base', 'account',"web"],
     'data': [
         'data/data_currency.xml',

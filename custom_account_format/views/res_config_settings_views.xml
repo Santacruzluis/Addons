@@ -1,20 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
 <odoo>
     <record id="res_config_settings_view_form_inherit_custom_invoice" model="ir.ui.view">
         <field name="name">res.config.settings.view.form.inherit.custom.invoice</field>
         <field name="model">res.config.settings</field>
         <field name="inherit_id" ref="base.res_config_settings_view_form"/>
         <field name="arch" type="xml">
+            <!-- Añadimos una nueva sección para nuestras configuraciones -->
             <xpath expr="//form[hasclass('oe_form_configuration')]" position="inside">
-                <div class="col-12 col-lg-6 o_setting_box" id="default_freeform_format">
-                    <div class="o_setting_left_pane"/>
-                    <h2>Formato Forma Libre</h2>
-                    <div class="o_setting_right_pane">
-                        <span class="o_form_label">Default freeform format</span>
-                        <div class="text-muted">
-                        Default freeform invoice format
+                <div class="app_settings_block" data-string="Formato de Factura" id="custom_invoice_format_settings">
+                    <h2>Formato de Factura</h2>
+                    <div class="row mt16 o_settings_container">
+                        <div class="col-12 col-lg-6 o_setting_box">
+                            <div class="o_setting_left_pane">
+                                <field name="custom_invoice_check"/>
+                            </div>
+                            <div class="o_setting_right_pane">
+                                <label for="custom_invoice_check" string="Formato Forma Libre"/>
+                                <div class="text-muted">
+                                    Habilitar formato de factura de forma libre
+                                </div>
+                            </div>
                         </div>
-                        <div class="text-muted">
-                            <field name="custom_invoice_check"/>
+
+                        <div class="col-12 col-lg-6 o_setting_box">
+                            <div class="o_setting_left_pane">
+                                <field name="use_half_letter" invisible="not custom_invoice_check"/>
+                            </div>
+                            <div class="o_setting_right_pane">
+                                <label for="use_half_letter" string="Formato Media Carta"/>
+                                <div class="text-muted">
+                                    Usar formato de media carta para impresión
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
