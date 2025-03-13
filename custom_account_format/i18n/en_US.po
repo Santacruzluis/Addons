@@ -1,0 +1,234 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* custom_account_format
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 17.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2023-11-15 12:00+0000\n"
+"PO-Revision-Date: 2023-11-15 12:00+0000\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: custom_account_format
+#: model_terms:ir.ui.view,arch_db:custom_account_format.free_form_template
+msgid "Address:"
+msgstr "Address:"
+
+#. module: custom_account_format
+#: model_terms:ir.ui.view,arch_db:custom_account_format.free_form_template
+msgid "Amount Untaxed"
+msgstr "Amount Untaxed"
+
+#. module: custom_account_format
+#: model_terms:ir.ui.view,arch_db:custom_account_format.free_form_template
+msgid "As established in Art. 25 of the Value Added Tax Law, the amounts of the invoice are expressed in Bs. Calculated at"
+msgstr "As established in Art. 25 of the Value Added Tax Law, the amounts of the invoice are expressed in Bs. Calculated at"
+
+#. module: custom_account_format
+#: model_terms:ir.ui.view,arch_db:custom_account_format.free_form_template
+msgid "Credit Note"
+msgstr "Credit Note"
+
+#. module: custom_account_format
+#: model_terms:ir.ui.view,arch_db:custom_account_format.free_form_template
+msgid "Credit Note N°:"
+msgstr "Credit Note N°:"
+
+#. module: custom_account_format
+#: model_terms:ir.ui.view,arch_db:custom_account_format.free_form_template
+msgid "Date:"
+msgstr "Date:"
+
+#. module: custom_account_format
+#: model_terms:ir.ui.view,arch_db:custom_account_format.free_form_template
+msgid "Description"
+msgstr "Description"
+
+#. module: custom_account_format
+#: model_terms:ir.ui.view,arch_db:custom_account_format.free_form_template
+msgid "Discount"
+msgstr "Discount"
+
+#. module: custom_account_format
+#: model_terms:ir.ui.view,arch_db:custom_account_format.free_form_template
+msgid "Due date:"
+msgstr "Due date:"
+
+#. module: custom_account_format
+#: model:ir.model.fields,field_description:custom_account_format.field_account_move__fiscal_check
+#: model_terms:ir.ui.view,arch_db:custom_account_format.inherited_account_move_form
+msgid "Formato Fiscal"
+msgstr "Fiscal Format"
+
+#. module: custom_account_format
+#: model:ir.model.fields,field_description:custom_account_format.field_account_move__fiscal_print_date
+msgid "Fiscal Print Date"
+msgstr "Fiscal Print Date"
+
+#. module: custom_account_format
+#: model:ir.model.fields,field_description:custom_account_format.field_account_move__fiscal_payment_condition
+msgid "Payment Condition"
+msgstr "Payment Condition"
+
+#. module: custom_account_format
+#: model:ir.model.fields,field_description:custom_account_format.field_account_move__fiscal_correlative
+msgid "Fiscal Correlative"
+msgstr "Fiscal Correlative"
+
+#. module: custom_account_format
+#: model:ir.model.fields,field_description:custom_account_format.field_account_move__fiscal_currency_id
+msgid "Fiscal Currency"
+msgstr "Fiscal Currency"
+
+#. module: custom_account_format
+#: model:ir.model.fields,field_description:custom_account_format.field_account_move__fiscal_comment
+msgid "Fiscal Comment"
+msgstr "Fiscal Comment"
+
+#. module: custom_account_format
+#: model_terms:ir.ui.view,arch_db:custom_account_format.inherited_account_move_form
+msgid "Informacion Fiscal"
+msgstr "Fiscal Information"
+
+#. module: custom_account_format
+#: model_terms:ir.ui.view,arch_db:custom_account_format.res_config_settings_view_form_inherit_custom_invoice
+msgid "Formato Forma Libre"
+msgstr "Free Form Format"
+
+#. module: custom_account_format
+#: model_terms:ir.ui.view,arch_db:custom_account_format.res_config_settings_view_form_inherit_custom_invoice
+msgid "Formato Media Carta"
+msgstr "Half Letter Format"
+
+#. module: custom_account_format
+#: model_terms:ir.ui.view,arch_db:custom_account_format.res_config_settings_view_form_inherit_custom_invoice
+msgid "Formato de Factura"
+msgstr "Invoice Format"
+
+#. module: custom_account_format
+#: model:ir.actions.report,name:custom_account_format.action_free_form_letter_report
+msgid "Freeform Letter"
+msgstr "Freeform Letter"
+
+#. module: custom_account_format
+#: model:ir.actions.report,name:custom_account_format.action_free_form_half_letter_report
+msgid "Freeform Half Letter"
+msgstr "Freeform Half Letter"
+
+#. module: custom_account_format
+#: model_terms:ir.ui.view,arch_db:custom_account_format.free_form_template
+msgid "Invoice"
+msgstr "Invoice"
+
+#. module: custom_account_format
+#: model_terms:ir.ui.view,arch_db:custom_account_format.free_form_template
+msgid "Invoice N°:"
+msgstr "Invoice N°:"
+
+#. module: custom_account_format
+#: model_terms:ir.ui.view,arch_db:custom_account_format.inherited_account_move_form
+msgid "Marque esta casilla para habilitar el formato fiscal en esta factura"
+msgstr "Check this box to enable fiscal format for this invoice"
+
+#. module: custom_account_format
+#: model_terms:ir.ui.view,arch_db:custom_account_format.free_form_template
+msgid "Measure"
+msgstr "Measure"
+
+#. module: custom_account_format
+#: model_terms:ir.ui.view,arch_db:custom_account_format.free_form_template
+msgid "Municipality"
+msgstr "Municipality"
+
+#. module: custom_account_format
+#: model_terms:ir.ui.view,arch_db:custom_account_format.inherited_account_move_form
+msgid "Observaciones"
+msgstr "Observations"
+
+#. module: custom_account_format
+#: model_terms:ir.ui.view,arch_db:custom_account_format.free_form_template
+msgid "Partner:"
+msgstr "Partner:"
+
+#. module: custom_account_format
+#: model_terms:ir.ui.view,arch_db:custom_account_format.free_form_template
+msgid "Payment condition:"
+msgstr "Payment condition:"
+
+#. module: custom_account_format
+#: model_terms:ir.ui.view,arch_db:custom_account_format.inherited_account_move_form
+#: model_terms:ir.ui.view,arch_db:custom_account_format.inherited_account_move_tree
+msgid "Print Freeform"
+msgstr "Print Freeform"
+
+#. module: custom_account_format
+#: model_terms:ir.ui.view,arch_db:custom_account_format.free_form_template
+msgid "Quantity"
+msgstr "Quantity"
+
+#. module: custom_account_format
+#: model_terms:ir.ui.view,arch_db:custom_account_format.free_form_template
+msgid "RUC:"
+msgstr "RUC:"
+
+#. module: custom_account_format
+#: model_terms:ir.ui.view,arch_db:custom_account_format.free_form_template
+msgid "Supplier Credit Note"
+msgstr "Supplier Credit Note"
+
+#. module: custom_account_format
+#: model_terms:ir.ui.view,arch_db:custom_account_format.free_form_template
+msgid "Supplier Credit Note N°:"
+msgstr "Supplier Credit Note N°:"
+
+#. module: custom_account_format
+#: model_terms:ir.ui.view,arch_db:custom_account_format.free_form_template
+msgid "Supplier Invoice"
+msgstr "Supplier Invoice"
+
+#. module: custom_account_format
+#: model_terms:ir.ui.view,arch_db:custom_account_format.free_form_template
+msgid "Supplier Invoice N°:"
+msgstr "Supplier Invoice N°:"
+
+#. module: custom_account_format
+#: model_terms:ir.ui.view,arch_db:custom_account_format.free_form_template
+msgid "Summary in Document Currency"
+msgstr "Summary in Document Currency"
+
+#. module: custom_account_format
+#: model_terms:ir.ui.view,arch_db:custom_account_format.free_form_template
+msgid "Summary in Fiscal Currency"
+msgstr "Summary in Fiscal Currency"
+
+#. module: custom_account_format
+#: model_terms:ir.ui.view,arch_db:custom_account_format.free_form_template
+msgid "Total"
+msgstr "Total"
+
+#. module: custom_account_format
+#: model_terms:ir.ui.view,arch_db:custom_account_format.free_form_template
+msgid "Unit Price"
+msgstr "Unit Price"
+
+#. module: custom_account_format
+#: model_terms:ir.ui.view,arch_db:custom_account_format.res_config_settings_view_form_inherit_custom_invoice
+msgid "Usar formato de media carta para impresión"
+msgstr "Use half letter format for printing"
+
+#. module: custom_account_format
+#: model_terms:ir.ui.view,arch_db:custom_account_format.free_form_template
+msgid "VAT:"
+msgstr "VAT:"
+
+#. module: custom_account_format
+#: model_terms:ir.ui.view,arch_db:custom_account_format.free_form_template
+msgid "the exchange rate established by the BCV"
+msgstr "the exchange rate established by the BCV"
+

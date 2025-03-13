@@ -3,28 +3,41 @@ from odoo.exceptions import UserError
 
 
 class AccountMove(models.Model):
-    _inherit = 'account.move'
+    _inherit = "account.move"
 
-    fiscal_check = fields.Boolean(string='Fiscal Format', default=False)
-    fiscal_print_date = fields.Date(string='Fiscal Print Date')
-    fiscal_payment_condition = fields.Char(string='Payment Condition')
-    fiscal_comment = fields.Text(string='Fiscal Comment')
-    fiscal_currency_id = fields.Many2one('res.currency', string='Fiscal Currency')
-    fiscal_correlative = fields.Char(string='Fiscal Correlative', compute='_compute_fiscal_correlative', store=True)
-    fiscal_tax_totals = fields.Json(string='Fiscal Tax Totals', compute='_compute_fiscal_tax_totals')
+    fiscal_check = fields.Boolean(string="Fiscal Format", default=False)
+    fiscal_print_date = fields.Date(string="Fiscal Print Date")
+    fiscal_payment_condition = fields.Char(string="Payment Condition")
+    fiscal_comment = fields.Text(string="Fiscal Comment")
+    fiscal_currency_id = fields.Many2one(
+        "res.currency", string="Fiscal Currency"
+    )
+    fiscal_correlative = fields.Char(
+        string="Fiscal Correlative",
+        compute="_compute_fiscal_correlative",
+        store=True,
+    )
+    fiscal_tax_totals = fields.Json(
+        string="Fiscal Tax Totals", compute="_compute_fiscal_tax_totals"
+    )
 
-    @api.depends('name', 'state')
+    @api.depends("name", "state")
     def _compute_fiscal_correlative(self):
         for record in self:
-            if record.name and record.state == 'posted':
+            if record.name and record.state == "posted":
                 record.fiscal_correlative = record.name
             else:
                 record.fiscal_correlative = False
 
-    @api.depends('fiscal_currency_id', 'amount_total', 'amount_untaxed', 'amount_tax')
+    @api.depends(
+        "fiscal_currency_id", "amount_total", "amount_untaxed", "amount_tax"
+    )
     def _compute_fiscal_tax_totals(self):
         for record in self:
-            if record.fiscal_currency_id and record.fiscal_currency_id != record.currency_id:
+            if (
+                record.fiscal_currency_id
+                and record.fiscal_currency_id != record.currency_id
+            ):
                 # Here you would implement the logic to calculate tax totals in the fiscal currency
                 # This is a simplified example
                 record.fiscal_tax_totals = record.tax_totals
@@ -34,38 +47,47 @@ class AccountMove(models.Model):
     def print_freeform(self):
         self.ensure_one()
         if not self.fiscal_check:
-            raise UserError(_("This invoice is not marked for fiscal printing."))
-        
-        # Check if we should use half letter or letter format
-        report_name = 'custom_account_format.action_free_form_letter_report'
-        
-        # Verificamos si existe el campo use_half_letter en la compañía
-        if hasattr(self.env.company, 'use_half_letter') and self.env.company.use_half_letter:
-            report_name = 'custom_account_format.action_free_form_half_letter_report'
-        # Si no existe, intentamos obtenerlo de los parámetros de configuración
-        else:
-            use_half_letter = self.env['ir.config_parameter'].sudo().get_param('custom_account_format.use_half_letter')
-            if use_half_letter == 'True' or use_half_letter == 'true' or use_half_letter == '1':
-                report_name = 'custom_account_format.action_free_form_half_letter_report'
-        
+            raise UserError(
+                _("This invoice is not marked for fiscal printing.")
+            )
+
+        # Verificar si el formato libre está activado en la configuración global
+        custom_invoice_check = (
+            self.env["ir.config_parameter"]
+            .sudo()
+            .get_param("custom_account_format.custom_invoice_check")
+        )
+        if custom_invoice_check not in ("True", "true", "1"):
+            raise UserError(
+                _("Freeform format is not enabled in the settings.")
+            )
+
+        # Determinar el formato del informe basado en la compañía
+        report_name = (
+            "custom_account_format.action_free_form_half_letter_report"
+            if self.env.company.use_half_letter
+            else "custom_account_format.action_free_form_letter_report"
+        )
+
         return self.env.ref(report_name).report_action(self)
 
     def _get_rate(self):
-        """Get the exchange rate between invoice currency and fiscal currency"""
-        self.ensure_one()
-        if not self.fiscal_currency_id or self.fiscal_currency_id == self.currency_id:
-            return 1.0
-        
-        # Get the rate from the date of the invoice
-        rate = self.env['res.currency.rate'].search([
-            ('currency_id', '=', self.fiscal_currency_id.id),
-            ('name', '<=', self.invoice_date or fields.Date.today())
-        ], limit=1, order='name desc')
-        
-        if rate:
-            return rate.rate
-        return 1.0
+        get_rate = self.env["res.currency"]._get_conversion_rate
+        max_rate = max(
+            get_rate(
+                self.currency_id,
+                self.fiscal_currency_id,
+                self.company_id,
+                self.date or fields.date.today()
+            ),
+            get_rate(
+                self.fiscal_currency_id,
+                self.currency_id,
+                self.company_id,
+                self.date or fields.date.today()
+            ))
+        return self.currency_id.format(max_rate)
 
     def _validate_na(self, value):
         """Validate if a value is not empty or 'N/A'"""
-        return value and value.upper() != 'N/A'
+        return value and value.upper() != "N/A"
