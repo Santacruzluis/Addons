@@ -74,7 +74,8 @@
         'report/monto_faov.xml',
         'views/hr_control_periodo_vacaciones.xml',
         'views/hr_leave_type_inherit_view.xml',
-        
+        'views/hr_currency_conversion.xml',
+        'views/hr_coin_vef.xml',
     ],
     'demo': [],
     'installable': True,

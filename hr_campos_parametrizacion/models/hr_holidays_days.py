@@ -867,7 +867,7 @@ class hr_special_days(models.Model):
                     dias_antiguedad=det.pay_day_garantia
             selff.dias_por_antiguedad=dias_antiguedad
 
-    @api.depends('date_from', 'date_to')
+    @api.depends('date_from', 'date_to', 'employee_id', 'contract_id.date_start', 'contract_id.date_end')
     def _compute_days(self): #nuevo
         for selff in self:
             holydays = mondays = saturdays = sundays = workdays = nro_feriado = 0
@@ -922,7 +922,7 @@ class hr_special_days(models.Model):
             if hollyday_id:
                 for det_holyday in hollyday_id:
                     nro_feriado=1+selff.days_dife(det_holyday.date_from,det_holyday.date_to)
-                    holydays=holydays+nro_feriado
+                    selff.holydays = holydays + nro_feriado
 
             if selff.company_id.tipo_dif_dias=='fech_cal':
                 workdays = dif_dia - saturdays - sundays - holydays  #  OJO REVISAR PARA SUPER CAUCHOS
