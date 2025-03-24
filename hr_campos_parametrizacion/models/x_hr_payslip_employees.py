@@ -83,13 +83,16 @@ class HrPayslipEmployees(models.TransientModel):
         contracts = employees._get_contracts(
             payslip_run.date_start, payslip_run.date_end, states=['open', 'close']
         ).filtered(lambda c: c.active)
-        contracts._generate_work_entries(payslip_run.date_start, payslip_run.date_end)
+        date_start = datetime.combine(payslip_run.date_start, datetime.min.time())
+        date_end = datetime.combine(payslip_run.date_end, datetime.max.time())
+        contracts._generate_work_entries(date_start, date_end)
+
         work_entries = self.env['hr.work.entry'].search([
             ('date_start', '<=', payslip_run.date_end),
             ('date_stop', '>=', payslip_run.date_start),
             ('employee_id', 'in', employees.ids),
         ])
-        self._check_undefined_slots(work_entries, payslip_run)
+        #self._check_undefined_slots(work_entries, payslip_run)
 
         if(self.structure_id.type_id.default_struct_id == self.structure_id):
             work_entries = work_entries.filtered(lambda work_entry: work_entry.state != 'validated')

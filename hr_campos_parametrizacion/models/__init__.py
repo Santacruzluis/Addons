@@ -21,7 +21,3 @@ from . import hr_config_ret_faov
 from . import hr_ad_personal
 from . import hr_payslip_run
 from . import hr_leave_type_inherit
-
-from . import hr_currency_conversion
-
-from . import hr_coin_vef

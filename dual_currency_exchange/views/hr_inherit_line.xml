@@ -1,0 +1,21 @@
+<?xml version='1.0' encoding='utf-8'?>
+<odoo>
+    <data>
+        <record id="view_hr_payslip_form_inherit" model="ir.ui.view">
+            <field name="name">hr.payslip.form.inherit</field>
+            <field name="model">hr.payslip</field>
+            <field name="inherit_id" ref="hr_payroll.view_hr_payslip_form"/>
+            <field name="arch" type="xml">
+                <!-- Campo wage_in_ves (conversión de amount) -->
+                <xpath expr="//page[@name='salary_computation']//field[@name='line_ids']/tree//field[@name='amount']" position="after">
+                    <field name="wage_in_ves" string="Monto VES" readonly="1" sum="Total Monto conversion" force_save="1" />
+                </xpath>
+
+                <!-- Campo total_in_ves (conversión de total) -->
+                <xpath expr="//page[@name='salary_computation']//field[@name='line_ids']/tree//field[@name='total']" position="after">
+                    <field name="total_in_ves" string="Total de conversion" readonly="1" sum="Total de conversion" force_save="1" />
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>
