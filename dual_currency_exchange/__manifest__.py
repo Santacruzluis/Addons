@@ -22,11 +22,15 @@
         "hr_payroll_account"
     ],
     "data": [
-        "views/hr_currency_config.xml",
+        #"security/ir.model.access.csv",
         "views/hr_currency_conversion.xml",
-        "views/hr_inherit_payslip_view.xml",
         "views/hr_coin_vef.xml",
-        "views/hr_inherit_line.xml"
+        "views/hr_payslip_worked_days.xml",
+        "views/hr_inherit_line.xml",
+        "views/hr_currency_config.xml",
+        "views/hr_inherit_payslip_view.xml",
+        "report/payslip_report_ves.xml",
+        "views/hr_payslip_button_report.xml",
     ],
     "installable": True,
     "application": True,

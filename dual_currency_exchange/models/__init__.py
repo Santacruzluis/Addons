@@ -10,6 +10,8 @@ from . import hr_holidays_days
 
 from . import hr_payslip_line
 
+from . import hr_payslip_worked_days 
+
 
 
 
