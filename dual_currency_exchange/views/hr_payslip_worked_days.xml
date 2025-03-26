@@ -9,11 +9,7 @@
             <field name="arch" type="xml">
                 <!-- Añadir campo "amount_in_ves" en días trabajados -->
                 <xpath expr="//field[@name='worked_days_line_ids']//tree//field[@name='amount']" position="after">
-                    <field name="amount_in_ves" 
-                           string="Monto VES" 
-                           readonly="1" 
-                           sum="Total VES" 
-                           currency_field="conversion_currency_id"/>
+                    <field name="amount_in_ves" string="Monto de Conversion" widget="monetary" options="{'currency_field': 'conversion_currency_id'}" readonly="1" sum="Total de Conversion" currency_field="conversion_currency_id"/>
                 </xpath>
             </field>
         </record>

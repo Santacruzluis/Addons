@@ -9,7 +9,7 @@
                 <!-- Añadir botón para imprimir reporte en VES junto al botón de impresión nativo -->
                 <xpath expr="//button[@name='action_print_payslip']" position="after">
                     <button name="%(dual_currency_exchange.action_report_payslip_ves)d" 
-                            string="Imprimir Recibo VES" 
+                            string="Imprimir con la Conversion" 
                             type="action" 
                             groups="hr_payroll.group_hr_payroll_user"/>
                 </xpath>
