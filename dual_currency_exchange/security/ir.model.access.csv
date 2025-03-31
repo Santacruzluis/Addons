@@ -1,2 +1,2 @@
 id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
-access_dual_currency_exchange_dual_currency_exchange,dual_currency_exchange.dual_currency_exchange,model_dual_currency_exchange_dual_currency_exchange,base.group_user,1,1,1,1
+access_currency_wizard,currency.wizard.access,model_currency_salary_update_wizard,base.group_user,1,1,1,1

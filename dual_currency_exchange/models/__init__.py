@@ -12,6 +12,7 @@ from . import hr_payslip_line
 
 from . import hr_payslip_worked_days 
 
+from . import res_currency
 
 
 
