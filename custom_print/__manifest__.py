@@ -1,0 +1,20 @@
+{
+    "name": "Custom Print",
+    "version": "1.0",
+    "summary": "Personalized printing management",
+    "description": "Module to customize invoice printing formats",
+    "category": "Tools",
+    "author": "Manolo",
+    "depends": ["base", "web", "account"],
+    "data": [
+        #'security/ir.model.access.csv',
+        "views/res_config_settings.xml",
+        "views/account_move.xml",
+        "reports/paperformat_data.xml",
+        "reports/external_layout_templates.xml",
+        "reports/invoice_report.xml",
+    ],
+    "installable": True,
+    "application": True,
+    "license": "LGPL-3",
+}
