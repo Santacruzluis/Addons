@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Definición del formato de papel -->
+    <record id="paperformat_half_letter" model="report.paperformat">
+        <field name="name">Media Carta</field>
+        <field name="default" eval="False"/>
+        <field name="format">custom</field>
+        <field name="page_height">140</field>
+        <field name="page_width">216</field>
+        <field name="orientation">Portrait</field>
+        <field name="margin_top">10</field>
+        <field name="margin_bottom">10</field>
+        <field name="margin_left">10</field>
+        <field name="margin_right">10</field>
+        <field name="header_line" eval="False"/>
+        <field name="header_spacing">5</field>
+        <field name="dpi">90</field>
+    </record>
+
+    <!-- Plantilla del reporte -->
+    <template id="report_custom_quotation">
+        <t t-call="web.html_container">
+            <t t-call="web.external_layout">
+                <t t-set="doc" t-value="doc"/>
+                <div class="page" style="font-family: Arial, sans-serif;">
+                    <!-- Encabezado personalizado -->
+                    <div class="row mb-4" t-if="doc.company_id.custom_header">
+                        <div t-raw="doc.company_id.custom_header"/>
+                    </div>
+                    
+                    <!-- Información del documento -->
+                    <div class="row" style="margin-bottom: 20px;">
+                        <div class="col-6">
+                            <strong>Cliente:</strong>
+                            <p t-field="doc.partner_id" t-field-options='{"no_marker": true}' style="margin-top: 5px;"/>
+                        </div>
+                        <div class="col-6 text-right">
+                            <strong>Cotización #</strong>
+                            <p t-field="doc.name" t-field-options='{"no_marker": true}' style="margin-top: 5px;"/>
+                            <strong>Fecha:</strong>
+                            <p t-field="doc.date_order" t-field-options='{"no_marker": true, "format": "dd/MM/yyyy"}' style="margin-top: 5px;"/>
+                        </div>
+                    </div>
+                    
+                    <!-- Líneas de productos -->
+                    <div class="row mt-4">
+                        <table class="table table-sm" style="width: 100%; border-collapse: collapse;">
+                            <thead>
+                                <tr style="background-color: #f8f9fa;">
+                                    <th style="padding: 8px; border: 1px solid #dee2e6;">Producto</th>
+                                    <th style="padding: 8px; border: 1px solid #dee2e6; text-align: right;">Cantidad</th>
+                                    <th style="padding: 8px; border: 1px solid #dee2e6; text-align: right;">Precio Unitario</th>
+                                    <th style="padding: 8px; border: 1px solid #dee2e6; text-align: right;">Subtotal</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <t t-foreach="doc.order_line" t-as="line">
+                                    <tr>
+                                        <td style="padding: 8px; border: 1px solid #dee2e6;">
+                                            <span t-field="line.product_id.name"/>
+                                            <t t-if="line.name">
+                                                <br/>
+                                                <small t-field="line.name" t-field-options='{"no_marker": true}' style="color: #6c757d;"/>
+                                            </t>
+                                        </td>
+                                        <td style="padding: 8px; border: 1px solid #dee2e6; text-align: right;" t-field="line.product_uom_qty"/>
+                                        <td style="padding: 8px; border: 1px solid #dee2e6; text-align: right;" t-field="line.price_unit"/>
+                                        <td style="padding: 8px; border: 1px solid #dee2e6; text-align: right;" t-field="line.price_subtotal"/>
+                                    </tr>
+                                </t>
+                            </tbody>
+                        </table>
+                    </div>
+                    
+                    <!-- Totales e impuestos -->
+                    <div class="row mt-4" style="margin-top: 30px;">
+                        <div class="col-6">
+                            <t t-if="doc.note">
+                                <strong>Notas:</strong>
+                                <p t-field="doc.note" t-field-options='{"no_marker": true}' style="margin-top: 5px;"/>
+                            </t>
+                        </div>
+                        <div class="col-6">
+                            <table class="table table-sm float-right" style="width: auto; border-collapse: collapse;">
+                                <tr>
+                                    <td style="padding: 5px;"><strong>Subtotal:</strong></td>
+                                    <td style="padding: 5px; text-align: right;" t-field="doc.amount_untaxed"/>
+                                </tr>
+                                <t t-foreach="doc.amount_by_group" t-as="tax_group">
+                                    <tr>
+                                        <td style="padding: 5px;"><span t-esc="tax_group[0]"/>:</td>
+                                        <td style="padding: 5px; text-align: right;"><span t-esc="tax_group[1]"/></td>
+                                    </tr>
+                                </t>
+                                <tr>
+                                    <td style="padding: 5px;"><strong>Total:</strong></td>
+                                    <td style="padding: 5px; text-align: right;" t-field="doc.amount_total"/>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                    
+                    <!-- Pie de página personalizado -->
+                    <div class="row mt-4" style="margin-top: 40px;" t-if="doc.company_id.custom_footer">
+                        <div t-raw="doc.company_id.custom_footer"/>
+                    </div>
+                    
+                    <!-- Información fiscal -->
+                    <div class="row mt-4 small" style="margin-top: 20px; font-size: 12px;">
+                        <div class="col-12 text-center">
+                            <t t-if="doc.company_id.rug">
+                                <span>RUG: <span t-field="doc.company_id.rug"/></span>
+                            </t>
+                            <t t-if="doc.company_id.lae">
+                                <span> | LAE: <span t-field="doc.company_id.lae"/></span>
+                            </t>
+                        </div>
+                    </div>
+                </div>
+            </t>
+        </t>
+    </template>
+
+    <!-- Definición del reporte -->
+    <report 
+        id="action_report_custom_quotation"
+        name="custom_print.report_custom_quotation"
+        model="sale.order"
+        report_type="qweb-pdf"
+        string="Cotización Personalizada"
+        file="custom_print.report_custom_quotation"
+        paperformat="custom_print.paperformat_half_letter"
+    />
+</odoo>
