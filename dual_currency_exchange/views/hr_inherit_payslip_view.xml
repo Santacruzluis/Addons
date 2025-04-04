@@ -9,6 +9,7 @@
                 <!-- Añadir campo "mondays" -->
                 <xpath expr="//field[@name='struct_id']" position="after">
                     <field name="mondays" string="Número de Lunes"/>
+                    <field name="mondays_month" string="Lunes del Mes"/>
                 </xpath>
             </field>
         </record>
