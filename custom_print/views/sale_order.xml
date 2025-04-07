@@ -5,12 +5,13 @@
         <field name="model">sale.order</field>
         <field name="inherit_id" ref="sale.view_order_form"/>
         <field name="arch" type="xml">
-            <!-- Añadir el campo primero -->
+            
+            <!-- Campo lógico oculto -->
             <xpath expr="//field[@name='client_order_ref']" position="after">
                 <field name="custom_print_enabled" invisible="1"/>
             </xpath>
             
-            <!-- Luego el botón -->
+            <!-- Botón de impresión personalizada -->
             <xpath expr="//button[@name='action_quotation_send']" position="after">
                 <button name="action_print_custom_quotation" 
                         type="object" 

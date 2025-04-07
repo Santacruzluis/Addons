@@ -19,15 +19,6 @@
                 <div class="text-muted">Activar formato de impresión personalizado para cotizaciones</div>
               </div>
             </div>
-
-            <!-- Selector de tamaño de papel - Versión vertical -->
-            <div class="col-12 col-lg-6 o_setting_box">
-              <div class="o_setting_right_pane" style="width: 100%;">
-                <label for="paper_size">Tamaño de Papel</label>
-                <div class="text-muted mb-2">Seleccione el tamaño de papel para la impresión</div>
-                <field name="paper_size" class="o_form_field_many2one"/>
-              </div>
-            </div>
           </div>
         </div>
       </xpath>

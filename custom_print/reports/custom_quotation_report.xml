@@ -1,90 +1,116 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
-    <!-- Plantilla con estilos inline forzados -->
-    <template id="report_custom_quotation_template">
-        <t t-call="web.html_container">
-            <div style="font-family: Arial, sans-serif; font-size: 8px !important; padding: 0; margin: 0;">
-                <!-- Encabezado mínimo -->
-                <div style="display: flex; justify-content: space-between; margin-bottom: 5px;">
-                    <div style="font-weight: bold;">
-                        <span t-field="doc.company_id.name"/>
+    <!-- Acción de reporte PDF -->
+    <record id="action_custom_quotation_report" model="ir.actions.report">
+        <field name="name">Cotización Personalizada</field>
+        <field name="model">sale.order</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">custom_print.custom_quotation_template</field>
+        <field name="print_report_name">'Cotización - %s' % object.name</field>
+        <!-- No se usa paperformat_id, porque se usa el formato por defecto (Carta) -->
+    </record>
+
+    <!-- Template principal del reporte -->
+    <template id="custom_quotation_template">
+        <t t-call="web.external_layout">
+            <t t-foreach="docs" t-as="o">
+                <main class="page" style="font-family: Calibri, sans-serif; font-size: 8pt;">
+                    <!-- Datos del Cliente y de la Cotización -->
+                    <div class="row">
+                        <div class="col-6">
+                            <strong>Cliente:</strong>
+                            <span t-field="o.partner_id"/>
+                            <br/>
+                            <strong>Dirección:</strong>
+                            <span t-out="o.partner_id._display_address()"/>
+                            <br/>
+                            <strong>Teléfono:</strong>
+                            <span t-field="o.partner_id.phone"/>
+                            <br/>
+                            <strong>Correo:</strong>
+                            <span t-field="o.partner_id.email"/>
+                            <br/>
+                        </div>
+                        <div class="col-6 text-end">
+                            <strong>Fecha de Cotización:</strong>
+                            <span t-field="o.date_order"/>
+                            <br/>
+                            <strong>Válido Hasta:</strong>
+                            <span t-field="o.validity_date"/>
+                            <br/>
+                            <strong>Vendedor:</strong>
+                            <span t-field="o.user_id"/>
+                            <br/>
+                            <strong>Referencia:</strong>
+                            <span t-field="o.client_order_ref"/>
+                            <br/>
+                        </div>
                     </div>
-                    <div>
-                        <span style="font-weight: bold;">Factura:</span> <span t-field="doc.name"/>
-                        <span> | </span>
-                        <span style="font-weight: bold;">Fecha:</span> <span t-field="doc.date_order" t-options='{"format": "dd/MM/yy"}'/>
-                    </div>
-                </div>
 
-                <!-- Info cliente compacta -->
-                <div style="margin-bottom: 5px; border-bottom: 0.5px solid #ddd; padding-bottom: 3px;">
-                    <div><strong>Cliente:</strong> <span t-field="doc.partner_id.name"/></div>
-                    <t t-if="doc.partner_id.vat">
-                        <div><strong>RIF:</strong> <span t-field="doc.partner_id.vat"/></div>
-                    </t>
-                </div>
+                    <hr/>
 
-                <!-- Tabla de productos ultra compacta -->
-                <table style="width: 100%; border-collapse: collapse; font-size: 8px !important; margin-top: 5px;">
-                    <thead>
-                        <tr style="border-bottom: 1px solid #ddd;">
-                            <th style="text-align: left; padding: 2px; width: 5%;">#</th>
-                            <th style="text-align: left; padding: 2px; width: 35%;">Descripción</th>
-                            <th style="text-align: right; padding: 2px; width: 12%;">P.Unit</th>
-                            <th style="text-align: right; padding: 2px; width: 10%;">Cant</th>
-                            <th style="text-align: center; padding: 2px; width: 12%;">Unidad</th>
-                            <th style="text-align: right; padding: 2px; width: 13%;">Subtotal</th>
-                            <th style="text-align: right; padding: 2px; width: 13%;">Total</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <t t-set="line_number" t-value="1"/>
-                        <t t-foreach="doc.order_line" t-as="line">
-                            <tr style="border-bottom: 0.5px solid #eee;">
-                                <td style="text-align: center; padding: 2px;"><span t-esc="line_number"/></td>
-                                <td style="text-align: left; padding: 2px;">
-                                    <span t-field="line.product_id.name"/>
-                                </td>
-                                <td style="text-align: right; padding: 2px;">$<span t-field="line.price_unit"/></td>
-                                <td style="text-align: right; padding: 2px;"><span t-field="line.product_uom_qty"/></td>
-                                <td style="text-align: center; padding: 2px;"><span t-field="line.product_uom.name"/></td>
-                                <td style="text-align: right; padding: 2px;">$<span t-field="line.price_subtotal"/></td>
-                                <td style="text-align: right; padding: 2px;">$<span t-field="line.price_total"/></td>
-                            </tr>
-                            <t t-set="line_number" t-value="line_number + 1"/>
-                        </t>
-                    </tbody>
-                </table>
-
-                <!-- Totales compactos -->
-                <div style="margin-top: 10px; display: flex; justify-content: flex-end;">
-                    <table style="width: 50%; border-collapse: collapse; font-size: 8px !important;">
-                        <tr>
-                            <td style="padding: 2px;"><strong>Subtotal:</strong></td>
-                            <td style="text-align: right; padding: 2px;">$<span t-field="doc.amount_untaxed"/></td>
-                        </tr>
-                        <t t-foreach="doc.amount_by_group" t-as="tax_group">
+                    <!-- Tabla de productos -->
+                    <table class="table table-sm mt-2">
+                        <thead>
                             <tr>
-                                <td style="padding: 2px;"><span t-esc="tax_group[0]"/>:</td>
-                                <td style="text-align: right; padding: 2px;">$<span t-esc="tax_group[1]"/></td>
+                                <th style="width:5%;">#</th>
+                                <th style="width:25%;">Producto</th>
+                                <th style="width:35%;">Descripción</th>
+                                <th class="text-end" style="width:10%;">Cantidad</th>
+                                <th class="text-end" style="width:15%;">Precio Unitario</th>
+                                <th class="text-end" style="width:10%;">Subtotal</th>
                             </tr>
-                        </t>
-                        <tr style="border-top: 1px solid #ddd;">
-                            <td style="padding: 2px;"><strong>Total:</strong></td>
-                            <td style="text-align: right; padding: 2px;">$<span t-field="doc.amount_total"/></td>
-                        </tr>
+                        </thead>
+                        <tbody>
+                            <t t-set="idx" t-value="0"/>
+                            <tr t-foreach="o.order_line" t-as="line">
+                                <t t-set="idx" t-value="idx + 1"/>
+                                <td>
+                                    <span t-esc="idx"/>
+                                </td>
+                                <td>
+                                    <span t-field="line.product_id"/>
+                                </td>
+                                <td>
+                                    <span t-field="line.name"/>
+                                </td>
+                                <td class="text-end">
+                                    <span t-field="line.product_uom_qty"/>
+                                </td>
+                                <td class="text-end">
+                                    <span t-field="line.price_unit"/>
+                                </td>
+                                <td class="text-end">
+                                    <span t-field="line.price_subtotal"/>
+                                </td>
+                            </tr>
+                        </tbody>
                     </table>
-                </div>
-            </div>
+
+                    <!-- Totales -->
+                    <div class="text-end mt-3">
+                        <p>
+                            <strong>Subtotal:</strong>
+                            <span t-field="o.amount_untaxed"/>
+                        </p>
+                        <p>
+                            <strong>Impuestos:</strong>
+                            <span t-field="o.amount_tax"/>
+                        </p>
+                        <p>
+                            <strong>Total:</strong>
+                            <span t-field="o.amount_total"/>
+                        </p>
+                    </div>
+
+                    <!-- Notas o condiciones -->
+                    <div class="mt-3">
+                        <strong>Términos y condiciones:</strong>
+                        <br/>
+                        <span t-field="o.note"/>
+                    </div>
+                </main>
+            </t>
         </t>
     </template>
-
-    <report 
-        id="report_custom_quotation" 
-        name="custom_print.report_custom_quotation_template" 
-        model="sale.order" 
-        report_type="qweb-pdf" 
-        string="Cotización Ultra Compacta" 
-        paperformat="custom_print.paperformat_custom_quotation" 
-    />
 </odoo>
