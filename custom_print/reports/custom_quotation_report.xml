@@ -10,14 +10,13 @@
         <field name="binding_model_id" ref="sale.model_sale_order"/>
         <field name="binding_type">report</field>
     </record>
-
-    <!-- Template principal del reporte -->
+    
     <template id="custom_quotation_template">
         <t t-call="web.html_container">
             <t t-foreach="docs" t-as="o">
-                <div class="article" style="font-family: 'Calibri'; font-size: small;">
+                <div class="article" style="font-family: 'Calibri'; font-size: small; position: relative; min-height: 100%;">
                     <!-- Encabezado de la empresa -->
-                    <div class="header" style="margin-bottom: 20px;">
+                    <div class="header" style="margin-bottom: 20px; position: relative;">
                         <div style="display: flex; align-items: center; gap: 10px;">
                             <div>
                                 <img t-if="o.company_id.logo" t-att-src="image_data_uri(o.company_id.logo)" style="max-height: 80px; max-width: 200px;"/>
@@ -51,15 +50,16 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
-
-                    <!-- Titulo del documento -->
-                    <div style="text-align: center; margin-bottom: 15px; border-top: 1px solid #000; border-bottom: 1px solid #000; padding: 5px 0;">
-                        <h4 style="margin: 0;">COTIZACION</h4>
-                        <div>N°: <span t-field="o.name"/>
+                        <!-- Número de cotización en esquina superior derecha -->
+                        <div style="position: absolute; top: 0; right: 0; text-align: right; border: 1px solid #000; padding: 5px 10px;">
+                            <div style="font-weight: bold; font-size: 1.2em;">COTIZACIÓN</div>
+                            <div>N°: <span t-field="o.name"/>
+                            </div>
                         </div>
                     </div>
 
+                    <!-- Línea divisoria -->
+                    <div style="border-top: 1px solid #000; border-bottom: 1px solid #000; margin-bottom: 15px;"></div>
                     <!-- Datos del cliente y cotizacion -->
                     <div class="row" style="display: flex; justify-content: space-between; margin-bottom: 15px;">
                         <div style="width: 60%;">
@@ -168,7 +168,7 @@
                         </div>
                     </div>
 
-                    <div style="margin-top: 8px; font-size: 9pt;">
+                    <div style="margin-top: px; font-size: 9pt;">
                         <strong>INSTRUCCIONES BANCARIAS:</strong>
                         <div style="margin-top: 5px;">
                             Banco Provincial - Cuenta Corriente Bs# 0108-0088-94-0101057682<br/>
