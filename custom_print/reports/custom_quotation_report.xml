@@ -10,7 +10,8 @@
         <field name="binding_model_id" ref="sale.model_sale_order"/>
         <field name="binding_type">report</field>
     </record>
-    
+
+    <!-- Template principal del reporte -->
     <template id="custom_quotation_template">
         <t t-call="web.html_container">
             <t t-foreach="docs" t-as="o">
@@ -51,7 +52,7 @@
                             </div>
                         </div>
                         <!-- Número de cotización en esquina superior derecha -->
-                        <div style="position: absolute; top: 0; right: 0; text-align: right; border: 1px solid #000; padding: 5px 10px;">
+                        <div style="position: absolute; top: 0; right: 0; text-align: right; border: 1px solid #000; padding: 5px 10px; background: white;">
                             <div style="font-weight: bold; font-size: 1.2em;">COTIZACIÓN</div>
                             <div>N°: <span t-field="o.name"/>
                             </div>
@@ -60,7 +61,8 @@
 
                     <!-- Línea divisoria -->
                     <div style="border-top: 1px solid #000; border-bottom: 1px solid #000; margin-bottom: 15px;"></div>
-                    <!-- Datos del cliente y cotizacion -->
+
+                    <!-- Datos del cliente y cotización -->
                     <div class="row" style="display: flex; justify-content: space-between; margin-bottom: 15px;">
                         <div style="width: 60%;">
                             <div>
@@ -118,61 +120,72 @@
                         </thead>
                         <tbody>
                             <t t-set="idx" t-value="0"/>
-                            <tr t-foreach="o.order_line" t-as="line">
+                            <tr t-foreach="o.order_line" t-as="line" style="border-bottom: 1px solid #eee;">
                                 <t t-set="idx" t-value="idx + 1"/>
-                                <td style="text-align: center; padding: 3px 0;">
+                                <td style="text-align: center; padding: 5px 0;">
                                     <span t-esc="idx"/>
                                 </td>
-                                <td style="padding: 3px 0;">
+                                <td style="padding: 5px 0;">
                                     <span t-field="line.product_id.default_code"/>
                                 </td>
-                                <td style="padding: 3px 0;">
+                                <td style="padding: 5px 0;">
                                     <span t-field="line.name"/>
                                 </td>
-                                <td style="text-align: right; padding: 3px 0;">
+                                <td style="text-align: right; padding: 5px 0;">
                                     <span t-field="line.product_uom_qty"/>
                                 </td>
-                                <td style="text-align: right; padding: 3px 0;">
+                                <td style="text-align: right; padding: 5px 0;">
                                     <span t-field="line.price_unit" t-options="{'widget': 'monetary', 'display_currency': o.currency_id}"/>
                                 </td>
-                                <td style="text-align: right; padding: 3px 0;">
+                                <td style="text-align: right; padding: 5px 0;">
                                     <span t-field="line.price_subtotal" t-options="{'widget': 'monetary', 'display_currency': o.currency_id}"/>
                                 </td>
                             </tr>
                         </tbody>
                     </table>
 
-                    <!-- Totales -->
-                    <div style="text-align: right; margin-top: 10px;">
-                        <div>
-                            <strong>Subtotal:</strong>
-                            <span t-field="o.amount_untaxed" t-options="{'widget': 'monetary', 'display_currency': o.currency_id}" style="margin-left: 10px; min-width: 80px; display: inline-block;"/>
-                        </div>
-                        <div>
-                            <strong>Impuestos:</strong>
-                            <span t-field="o.amount_tax" t-options="{'widget': 'monetary', 'display_currency': o.currency_id}" style="margin-left: 10px; min-width: 80px; display: inline-block;"/>
-                        </div>
-                        <div style="font-weight: bold;">
-                            <strong>Total:</strong>
-                            <span t-field="o.amount_total" t-options="{'widget': 'monetary', 'display_currency': o.currency_id}" style="margin-left: 10px; min-width: 80px; display: inline-block;"/>
-                        </div>
-                    </div>
-                </div>
+                    <!-- Pie de página ultra compacto -->
+                    <div class="footer" style="width: 100%; font-size: 8pt; color: #555; border-top: 6px solid #ccc; padding: 4px 0 0 0; background: white;">
+                        <div style="display: flex; justify-content: space-between; align-items: flex-start;">
+                            <!-- Texto izquierdo (términos + bancario) -->
+                            <div style="width: 68%; padding-right: 5px;">
+                                <div t-if="o.note" style="margin-bottom: 3px;">
+                                    <strong>Terminos y condiciones:</strong>
+                                    <div style="margin-top: 1px; white-space: pre-line; line-height: 1.1;">
+                                        <span t-field="o.note"/>
+                                    </div>
+                                </div>
 
-                <!-- Pie de pagina nativo de Odoo ajustado -->
-                <div class="footer" style="font-size: 8pt; color: #555; border-top: 6px solid #ccc; padding: 12px; position: relative; margin-top: -20px;">
-                    <div t-if="o.note" style="margin-bottom: 10px;">
-                        <strong>Terminos y condiciones:</strong>
-                        <div style="margin-top: 5px; white-space: pre-line;">
-                            <span t-field="o.note"/>
-                        </div>
-                    </div>
+                                <div>
+                                    <strong>INSTRUCCIONES BANCARIAS:</strong>
+                                    <div style="margin-top: 1px; line-height: 1.1;">
+                    Banco Provincial - Cuenta Corriente Bs# 0108-0088-94-0101057682<br/>
+                    Beneficiario: Aplus Services, C.A. - RIF: J-50101560-0
+                                    </div>
+                                </div>
+                            </div>
 
-                    <div style="margin-top: px; font-size: 9pt;">
-                        <strong>INSTRUCCIONES BANCARIAS:</strong>
-                        <div style="margin-top: 5px;">
-                            Banco Provincial - Cuenta Corriente Bs# 0108-0088-94-0101057682<br/>
-                            Beneficiario: Aplus Services, C.A. - RIF: J-50101560-0
+                            <!-- Montos derecha (pegados al borde) -->
+                            <div style="width: 30%; text-align: right; margin-top: -18px;">
+                                <div style="margin-bottom: 2px;">
+                                    <span style="display: inline-block; width: 55px; text-align: left;">
+                                        <strong>Subtotal:</strong>
+                                    </span>
+                                    <span t-field="o.amount_untaxed" t-options="{'widget': 'monetary', 'display_currency': o.currency_id}" style="width: 70px; display: inline-block; text-align: right;"/>
+                                </div>
+                                <div style="margin-bottom: 2px;">
+                                    <span style="display: inline-block; width: 55px; text-align: left;">
+                                        <strong>Impuestos:</strong>
+                                    </span>
+                                    <span t-field="o.amount_tax" t-options="{'widget': 'monetary', 'display_currency': o.currency_id}" style="width: 70px; display: inline-block; text-align: right;"/>
+                                </div>
+                                <div style="font-weight: bold; margin-bottom: 0;">
+                                    <span style="display: inline-block; width: 55px; text-align: left;">
+                                        <strong>Total:</strong>
+                                    </span>
+                                    <span t-field="o.amount_total" t-options="{'widget': 'monetary', 'display_currency': o.currency_id}" style="width: 70px; display: inline-block; text-align: right;"/>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
