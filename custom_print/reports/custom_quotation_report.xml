@@ -2,11 +2,11 @@
 <odoo>
     <!-- Acción de reporte PDF -->
     <record id="action_custom_quotation_report" model="ir.actions.report">
-        <field name="name">Cotización Personalizada</field>
+        <field name="name">Cotizacion Personalizada</field>
         <field name="model">sale.order</field>
         <field name="report_type">qweb-pdf</field>
         <field name="report_name">custom_print.custom_quotation_template</field>
-        <field name="print_report_name">'Cotización - %s' % object.name</field>
+        <field name="print_report_name">'Cotizacion - %s' % object.name</field>
         <field name="binding_model_id" ref="sale.model_sale_order"/>
         <field name="binding_type">report</field>
     </record>
@@ -15,18 +15,6 @@
     <template id="custom_quotation_template">
         <t t-call="web.html_container">
             <t t-foreach="docs" t-as="o">
-                <!-- Este es el pie de página que se repetirá en cada página -->
-                <div class="footer" style="font-size: 8pt; color: #555; border-top: 1px solid #ccc; padding-top: 5px; text-align: center;">
-                    <span t-field="o.company_id.name"/>
- - 
-                    <span t-field="o.company_id.street"/>
-                    <span t-if="o.company_id.street2">,                        <span t-field="o.company_id.street2"/>
-                    </span> - 
-                    <span t-if="o.company_id.phone">Teléfono: <span t-field="o.company_id.phone"/>
-                    </span>
-                </div>
-
-                <!-- Contenido principal -->
                 <div class="article" style="font-family: 'Calibri'; font-size: small;">
                     <!-- Encabezado de la empresa -->
                     <div class="header" style="margin-bottom: 20px;">
@@ -50,7 +38,7 @@
                                     </span>
                                 </div>
                                 <div>
-                                    <span t-if="o.company_id.phone">Teléfono: <span t-field="o.company_id.phone"/>
+                                    <span t-if="o.company_id.phone">Telefono: <span t-field="o.company_id.phone"/>
                                     </span>
                                     <span t-if="o.company_id.email"> | Email: <span t-field="o.company_id.email"/>
                                     </span>
@@ -65,14 +53,14 @@
                         </div>
                     </div>
 
-                    <!-- Título del documento -->
+                    <!-- Titulo del documento -->
                     <div style="text-align: center; margin-bottom: 15px; border-top: 1px solid #000; border-bottom: 1px solid #000; padding: 5px 0;">
-                        <h4 style="margin: 0;">COTIZACIÓN</h4>
+                        <h4 style="margin: 0;">COTIZACION</h4>
                         <div>N°: <span t-field="o.name"/>
                         </div>
                     </div>
 
-                    <!-- Datos del cliente y cotización -->
+                    <!-- Datos del cliente y cotizacion -->
                     <div class="row" style="display: flex; justify-content: space-between; margin-bottom: 15px;">
                         <div style="width: 60%;">
                             <div>
@@ -84,11 +72,11 @@
                                 <span t-field="o.partner_id.vat"/>
                             </div>
                             <div>
-                                <strong>Dirección:</strong>
+                                <strong>Direccion:</strong>
                                 <span t-out="o.partner_id._display_address()"/>
                             </div>
                             <div>
-                                <strong>Teléfono:</strong>
+                                <strong>Telefono:</strong>
                                 <span t-field="o.partner_id.phone"/>
                             </div>
                             <div>
@@ -102,7 +90,7 @@
                                 <span t-field="o.date_order" t-options='{"format": "dd/MM/yyyy"}'/>
                             </div>
                             <div>
-                                <strong>Válido hasta:</strong>
+                                <strong>Valido hasta:</strong>
                                 <span t-field="o.validity_date" t-options='{"format": "dd/MM/yyyy"}'/>
                             </div>
                             <div>
@@ -119,11 +107,10 @@
                     <!-- Tabla de productos -->
                     <table style="width: 100%; border-collapse: collapse; margin: 15px 0; font-size: 9pt;">
                         <thead>
-                            <!-- Modificado: Cambiado el borde a un color más claro y añadido padding inferior -->
                             <tr style="border-bottom: 2px solid #aaa;">
                                 <th style="width:5%; text-align: center; padding-bottom: 8px;">#</th>
                                 <th style="width:25%; text-align: left; padding-bottom: 8px;">Producto</th>
-                                <th style="width:35%; text-align: left; padding-bottom: 8px;">Descripción</th>
+                                <th style="width:35%; text-align: left; padding-bottom: 8px;">Descripcion</th>
                                 <th style="width:10%; text-align: right; padding-bottom: 8px;">Cantidad</th>
                                 <th style="width:15%; text-align: right; padding-bottom: 8px;">P. Unitario</th>
                                 <th style="width:10%; text-align: right; padding-bottom: 8px;">Subtotal</th>
@@ -131,25 +118,24 @@
                         </thead>
                         <tbody>
                             <t t-set="idx" t-value="0"/>
-                            <!-- Eliminada la línea inferior de cada fila de producto -->
                             <tr t-foreach="o.order_line" t-as="line">
                                 <t t-set="idx" t-value="idx + 1"/>
-                                <td style="text-align: center; padding: 3px 0; padding-top: 8px;">
+                                <td style="text-align: center; padding: 3px 0;">
                                     <span t-esc="idx"/>
                                 </td>
-                                <td style="padding: 3px 0; padding-top: 8px;">
+                                <td style="padding: 3px 0;">
                                     <span t-field="line.product_id.default_code"/>
                                 </td>
-                                <td style="padding: 3px 0; padding-top: 8px;">
+                                <td style="padding: 3px 0;">
                                     <span t-field="line.name"/>
                                 </td>
-                                <td style="text-align: right; padding: 3px 0; padding-top: 8px;">
+                                <td style="text-align: right; padding: 3px 0;">
                                     <span t-field="line.product_uom_qty"/>
                                 </td>
-                                <td style="text-align: right; padding: 3px 0; padding-top: 8px;">
+                                <td style="text-align: right; padding: 3px 0;">
                                     <span t-field="line.price_unit" t-options="{'widget': 'monetary', 'display_currency': o.currency_id}"/>
                                 </td>
-                                <td style="text-align: right; padding: 3px 0; padding-top: 8px;">
+                                <td style="text-align: right; padding: 3px 0;">
                                     <span t-field="line.price_subtotal" t-options="{'widget': 'monetary', 'display_currency': o.currency_id}"/>
                                 </td>
                             </tr>
@@ -171,22 +157,22 @@
                             <span t-field="o.amount_total" t-options="{'widget': 'monetary', 'display_currency': o.currency_id}" style="margin-left: 10px; min-width: 80px; display: inline-block;"/>
                         </div>
                     </div>
+                </div>
 
-                    <!-- Pie de página con notas y condiciones -->
-                    <div style="margin-top: 30px; font-size: 8pt; color: #555;">
-                        <div t-if="o.note" style="margin-bottom: 10px;">
-                            <strong>Términos y condiciones:</strong>
-                            <div style="margin-top: 5px; white-space: pre-line;">
-                                <span t-field="o.note"/>
-                            </div>
+                <!-- Pie de pagina nativo de Odoo ajustado -->
+                <div class="footer" style="font-size: 8pt; color: #555; border-top: 6px solid #ccc; padding: 12px; position: relative; margin-top: -20px;">
+                    <div t-if="o.note" style="margin-bottom: 10px;">
+                        <strong>Terminos y condiciones:</strong>
+                        <div style="margin-top: 5px; white-space: pre-line;">
+                            <span t-field="o.note"/>
                         </div>
+                    </div>
 
-                        <div style="margin-top: 10px; font-size: 9pt; border-top: 1px solid #000; padding-top: 10px;">
-                            <strong>INSTRUCCIONES BANCARIAS:</strong>
-                            <div style="margin-top: 5px;">
-                                Banco Provincial - Cuenta Corriente Bs# 0108-0088-94-0101057682<br/>
-                                Beneficiario: Aplus Services, C.A. - RIF: J-50101560-0
-                            </div>
+                    <div style="margin-top: 8px; font-size: 9pt;">
+                        <strong>INSTRUCCIONES BANCARIAS:</strong>
+                        <div style="margin-top: 5px;">
+                            Banco Provincial - Cuenta Corriente Bs# 0108-0088-94-0101057682<br/>
+                            Beneficiario: Aplus Services, C.A. - RIF: J-50101560-0
                         </div>
                     </div>
                 </div>
