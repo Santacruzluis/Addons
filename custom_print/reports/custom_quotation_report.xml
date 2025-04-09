@@ -96,10 +96,6 @@
                                 <span t-field="o.validity_date" t-options='{"format": "dd/MM/yyyy"}'/>
                             </div>
                             <div>
-                                <strong>Vendedor:</strong>
-                                <span t-field="o.user_id.name"/>
-                            </div>
-                            <div>
                                 <strong>Referencia:</strong>
                                 <span t-field="o.client_order_ref"/>
                             </div>
