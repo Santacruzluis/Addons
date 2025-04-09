@@ -52,7 +52,7 @@
                             </div>
                         </div>
                         <!-- Número de cotización en esquina superior derecha -->
-                        <div style="position: absolute; top: 0; right: 0; text-align: right; border: 1px solid #000; padding: 5px 10px; background: white;">
+                        <div style="position: absolute; top: 0; right: 0; text-align: right; padding: 5px 10px;">
                             <div style="font-weight: bold; font-size: 1.2em;">COTIZACIÓN</div>
                             <div>N°: <span t-field="o.name"/>
                             </div>
@@ -111,8 +111,7 @@
                         <thead>
                             <tr style="border-bottom: 2px solid #aaa;">
                                 <th style="width:5%; text-align: center; padding-bottom: 8px;">#</th>
-                                <th style="width:25%; text-align: left; padding-bottom: 8px;">Producto</th>
-                                <th style="width:35%; text-align: left; padding-bottom: 8px;">Descripcion</th>
+                                <th style="width:50%; text-align: left; padding-bottom: 8px;">Descripción</th>
                                 <th style="width:10%; text-align: right; padding-bottom: 8px;">Cantidad</th>
                                 <th style="width:15%; text-align: right; padding-bottom: 8px;">P. Unitario</th>
                                 <th style="width:10%; text-align: right; padding-bottom: 8px;">Subtotal</th>
@@ -120,13 +119,10 @@
                         </thead>
                         <tbody>
                             <t t-set="idx" t-value="0"/>
-                            <tr t-foreach="o.order_line" t-as="line" style="border-bottom: 1px solid #eee;">
+                            <tr t-foreach="o.order_line" t-as="line">
                                 <t t-set="idx" t-value="idx + 1"/>
                                 <td style="text-align: center; padding: 5px 0;">
                                     <span t-esc="idx"/>
-                                </td>
-                                <td style="padding: 5px 0;">
-                                    <span t-field="line.product_id.default_code"/>
                                 </td>
                                 <td style="padding: 5px 0;">
                                     <span t-field="line.name"/>
@@ -145,18 +141,18 @@
                     </table>
 
                     <!-- Pie de página ultra compacto -->
-                    <div class="footer" style="width: 100%; font-size: 8pt; color: #555; border-top: 6px solid #ccc; padding: 4px 0 0 0; background: white;">
-                        <div style="display: flex; justify-content: space-between; align-items: flex-start;">
-                            <!-- Texto izquierdo (términos + bancario) -->
-                            <div style="width: 68%; padding-right: 5px;">
-                                <div t-if="o.note" style="margin-bottom: 3px;">
-                                    <strong>Terminos y condiciones:</strong>
+                    <div class="footer" style="width: 100%; font-size: 8pt; color: #555; border-top: 6px solid #ccc; padding-top: 4px; background: white; margin-bottom: 20px;">
+                        <div class="row">
+                            <!-- Columna izquierda: términos e instrucciones -->
+                            <div class="col-8">
+                                <div style="margin-bottom: 2px;">
+                                    <strong>Términos y condiciones:</strong>
                                     <div style="margin-top: 1px; white-space: pre-line; line-height: 1.1;">
                                         <span t-field="o.note"/>
                                     </div>
                                 </div>
 
-                                <div>
+                                <div style="margin-top: 0px;">
                                     <strong>INSTRUCCIONES BANCARIAS:</strong>
                                     <div style="margin-top: 1px; line-height: 1.1;">
                     Banco Provincial - Cuenta Corriente Bs# 0108-0088-94-0101057682<br/>
@@ -165,29 +161,24 @@
                                 </div>
                             </div>
 
-                            <!-- Montos derecha (pegados al borde) -->
-                            <div style="width: 30%; text-align: right; margin-top: -18px;">
-                                <div style="margin-bottom: 2px;">
-                                    <span style="display: inline-block; width: 55px; text-align: left;">
-                                        <strong>Subtotal:</strong>
-                                    </span>
-                                    <span t-field="o.amount_untaxed" t-options="{'widget': 'monetary', 'display_currency': o.currency_id}" style="width: 70px; display: inline-block; text-align: right;"/>
+                            <!-- Columna derecha: montos -->
+                            <div class="col-4 text-end">
+                                <div>
+                                    <strong>Subtotal:</strong>
+                                    <span t-field="o.amount_untaxed" t-options="{'widget': 'monetary', 'display_currency': o.currency_id}"/>
                                 </div>
-                                <div style="margin-bottom: 2px;">
-                                    <span style="display: inline-block; width: 55px; text-align: left;">
-                                        <strong>Impuestos:</strong>
-                                    </span>
-                                    <span t-field="o.amount_tax" t-options="{'widget': 'monetary', 'display_currency': o.currency_id}" style="width: 70px; display: inline-block; text-align: right;"/>
+                                <div>
+                                    <strong>IVA (Impuesto):</strong>
+                                    <span t-field="o.amount_tax" t-options="{'widget': 'monetary', 'display_currency': o.currency_id}"/>
                                 </div>
-                                <div style="font-weight: bold; margin-bottom: 0;">
-                                    <span style="display: inline-block; width: 55px; text-align: left;">
-                                        <strong>Total:</strong>
-                                    </span>
-                                    <span t-field="o.amount_total" t-options="{'widget': 'monetary', 'display_currency': o.currency_id}" style="width: 70px; display: inline-block; text-align: right;"/>
+                                <div style="font-weight: bold;">
+                                    <strong>Total:</strong>
+                                    <span t-field="o.amount_total" t-options="{'widget': 'monetary', 'display_currency': o.currency_id}"/>
                                 </div>
                             </div>
                         </div>
                     </div>
+
                 </div>
             </t>
         </t>
